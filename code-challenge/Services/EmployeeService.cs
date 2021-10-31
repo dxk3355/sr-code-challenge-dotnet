@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using challenge.Models;
-using Microsoft.Extensions.Logging;
+﻿using challenge.Models;
 using challenge.Repositories;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace challenge.Services
 {
@@ -32,7 +29,8 @@ namespace challenge.Services
 
         public Employee GetById(string id)
         {
-            if(!String.IsNullOrEmpty(id))
+            _logger.LogInformation(nameof(EmployeeService) + "GetById" + id);
+            if (!String.IsNullOrEmpty(id))
             {
                 return _employeeRepository.GetById(id);
             }
@@ -59,5 +57,32 @@ namespace challenge.Services
 
             return newEmployee;
         }
+
+        /// <summary>
+        /// Get the reporting structure for an employee
+        /// </summary>
+        /// <param name="employee">Employee to get structure for</param>
+        /// <returns>Filled out reporting structure</returns>
+        public ReportingStructure GetReportingStructure(Employee employee)
+        {
+            return new ReportingStructure() { Employee = employee, NumberOfReports = GetNumberOfReports(employee) };
+        }
+
+        /// <summary>
+        /// Recursively get the counts of direct reports
+        /// </summary>
+        /// <param name="employee">Employee that has reports</param>
+        /// <returns>0 if null, otherwise the total number of direct reports as an integer</returns>
+        private int GetNumberOfReports(Employee employee)
+        {
+            if (employee == null || employee.DirectReports == null) { return 0; }
+            int total = employee.DirectReports.Count;
+            foreach (Employee report in employee.DirectReports)
+            {
+                total += GetNumberOfReports(report);
+            }
+            return total;
+        }
+
     }
 }

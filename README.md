@@ -1,3 +1,9 @@
+# Applicant Notes
+This implementation of the Mindex Coding challenge, original request is below
+ * For others the original code license is likely proprietary as no license was included.
+ * Some assumptions were made about the requirements and are noted in the Compensation model file.
+ 
+
 # Mindex Coding Challenge
 ## What's Provided
 A simple [.NetCore 2.1](https://dotnet.microsoft.com/download/dotnet-core/2.1) web application has been created and bootstrapped 

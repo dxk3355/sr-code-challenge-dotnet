@@ -11,5 +11,12 @@ namespace challenge.Services
         Employee GetById(String id);
         Employee Create(Employee employee);
         Employee Replace(Employee originalEmployee, Employee newEmployee);
+
+        /// <summary>
+        /// Get the reporting structure for an employee
+        /// </summary>
+        /// <param name="employee">Employee to get structure for</param>
+        /// <returns>Filled out reporting structure</returns>
+        ReportingStructure GetReportingStructure(Employee employee);
     }
 }
